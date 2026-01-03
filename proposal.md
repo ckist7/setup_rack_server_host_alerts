@@ -152,3 +152,10 @@ By submitting this proposal, I acknowledge that:
 - Evaluation will consider process, documentation, and professionalism
 
 **Signature (Name & Date):**
+
+Student 1:  ____________________________ Date: _______________
+Student 2:  ____________________________ Date: _______________
+Student 3:  ____________________________ Date: _______________
+Student 4:  ____________________________ Date: _______________
+
+Instructor: ____________________________ Date: _______________
