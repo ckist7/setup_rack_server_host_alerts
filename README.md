@@ -26,7 +26,7 @@ Set Up Rack Server Host Alerts
 •	Programming Language: Grafana GO's 
 •	Frameworks/Libraries: Grafana, Discord
 •	Databases/Storage:Grafana, Discord 
-•	Infrastructure: The core infrastructure component is the Rack Server
+•	Infrastructure: The core infrastructure component is Grafana and adding an alert mechanism to it
 •	Tools: Ubuntu OS, Grafana,Discord Webhooks
 6.	Prerequisite Knowledge & Skills
 •	I do not believe we have skills in the tools used except for using Ubuntu, and command lines in other classes. So we will be gaining more knowledge than applying existing knowledge. 
