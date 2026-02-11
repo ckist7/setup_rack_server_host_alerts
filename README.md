@@ -22,25 +22,25 @@ Set Up Rack Server Host Alerts
 4.	Proposed Solution Overview
 •	We will add an alert mechanism to Grafana
 5.	Technical Stack & Tools
-•	Operating System(s): Ubuntu (most work will be done on VM)
-•	Programming Language: Grafana GO's 
-•	Frameworks/Libraries: Grafana, Discord
-•	Databases/Storage:Grafana, Discord 
-•	Infrastructure: The core infrastructure component is Grafana and adding an alert mechanism to it
-•	Tools: Ubuntu OS, Grafana,Discord Webhooks
+•	Operating System(s): N/A
+•	Programming Language:N/A
+•	Frameworks/Libraries: Grafana, Query and Rule Language, Webhook, Notification/Integration Layer (Alets)
+•	Databases/Storage:N/A 
+•	Infrastructure:N/A
+•	Tools:Grafana, Discord Webhooks, PromQL
 6.	Prerequisite Knowledge & Skills
-•	I do not believe we have skills in the tools used except for using Ubuntu, and command lines in other classes. So we will be gaining more knowledge than applying existing knowledge. 
+•	We will research Grafana and specificall the Alerts 
 7.	Project Scope & Deliverables
 •	The MVP for this is the final document. It is going to be easy to read and comprehend. Have all the required information without any noise as well 
 8.	Milestones & Timelines
-•	Phase 1: Research & Design Week 1; Create outline of steps needed. 
-•	Phase 2: Core Implementation Week 2; Go through the steps of Phase 1 to add the alert mechanism to Grafana
+•	Phase 1: Research & Design Week 1;Research Grafana and create outline of steps needed
+•	Phase 2: Core Implementation Week 2; Begin building alerts
 •	Phase 3: Testing & Refinement Week 3; Go through extensive testing to ensure that our alerts are properly working. 
 •	Phase 4: Documentation & Presentation Week 4; Type up the steps and actions done to complete the project and work with the team members to prepare the presentation. 
 9.	Risks, Constraints & Dependencies
 •	Technical Risks: The fact we do not have much combined experience with completing a project like this. 
 •	Time Constraints: Time could become an issue if we do not figure out the proper way to complete the project. 
-•	External Dependencies: VM access, GitHub, Discord, Grafana
+•	External Dependencies: VM access, GitHub, Discord, Websites on creating webhooks and rack servers. 
 •	Mitigation Strategy: We can search and post things that we find to our group chat and talk about what we think we can use and what we cannot. 
 10.	 Security, Ethics & Safety Considerations
 •	Grafana access will be needed 
