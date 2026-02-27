@@ -1,0 +1,55 @@
+Steps taken:
+
+Once I learned the infrastructure was already there, it was just learning how to make Alert Rules on Grafana. 
+
+Watching tutorials and trying them at the same time helped a lot. I made a server on Discord so that way I could test it out before I was given my account 
+from Prof Bisesti.
+
+First I had to set up a High CPU Alert Rule which consisted of: 
+  - On the left sidebar under 'Alerting'
+  - Click 'Alert Rules'
+  - CLick 'New Alert Rule'
+  - Name the Rule as 'High CPU Usage'
+  - Select the folder to save it in which was 'Alerts' in the Dashboard
+  - Set the 'Evaluation Group' to 'Rack Server'
+
+Next Step was to Add the Code to the Query:
+  - The Query code is: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+  - node_cpu_seconds_total{mode="idle"} is a counter metric from Node Exporter that measures the total number of seonds the CPU has spent in a given mode.
+    -{mode="idle"} filters the metric to only include idle CPU time
+  - This part selects total accumulated seconds where CPU was idle
+
+  - rate(...[5m]) calculates the per-second average increase over the last 5 minutes, since it is a counter it converts into the fraction of time
+  the CPU was idle per second over a 5 minute period.
+
+  - avg by(instance)(...)
+    - Each CPU core reports separately
+  - This part:
+    - Averages the idle rate  
+    - Groups the result by instance
+    - Combines all CPU cores into a single value per machine
+  - This gives you the average idle percentage per instance
+
+  - *100 converts from decimal/fraction to percentage .72 -> 72
+      - Idle = 72%
+  - 100 - (...) flips idle into usage  
+      - CPU Usage = 100-72 = 28%
+
+Next Step is to set your Alert Conditions
+
+  - You will see Expression -> Threshold
+  - Warning Condition set to:
+    - Name of Condition: High CPU Usage
+    - WHEN: A
+    - IS ABOVE: (Your desired percentage)
+    - FOR: (Designated time interval) 
+  - Add another Threshold 
+    - Name of Condition: Critical Condition
+    - 
+  
+
+
+
+
+  
+    
