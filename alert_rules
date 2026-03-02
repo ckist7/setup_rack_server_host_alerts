@@ -1,9 +1,10 @@
 Steps taken:
 
-Once I learned the infrastructure was already there, it was just learning how to make Alert Rules on Grafana. 
+Once we learned the infrastructure was already there, it was just learning how to make Alert Rules on Grafana. 
 
-Watching tutorials and trying them at the same time helped a lot. I made a server on Discord so that way I could test it out before I was given my account 
-from Prof Bisesti.
+Watching tutorials and trying them at the same time helped a lot. We made a server on Discord so that way we could test it out before I was given my account 
+from Prof Bisesti. On my intitial attempts we made a few errors of trying to watch and do at the same time. Once we read and watched the material we were able to
+understand what we were going to have to do to make these alert rules be a success. 
 
 First I had to set up a High CPU Alert Rule which consisted of: 
   - On the left sidebar under 'Alerting'
@@ -40,13 +41,85 @@ Next Step is to set your Alert Conditions
   - You will see Expression -> Threshold
   - Warning Condition set to:
     - Name of Condition: High CPU Usage
-    - WHEN: A
+    - WHEN: A (Rule Name)
     - IS ABOVE: (Your desired percentage)
     - FOR: (Designated time interval) 
   - Add another Threshold 
     - Name of Condition: Critical Condition
-    - 
-  
+    - WHEN: A (Rule Name)
+    - IS ABOVE: (Your desired percentage)
+    - FOR: (Designated time interval)
+Grafana will automatically evaluate the highest severity first
+
+To reduce the chance of getting spammed with Alerts when over the threshold:
+  -Set Reduce and Evaluate Settings
+    -Reduce: Last
+    -Evaluate Every: 1m
+    -For: 5m
+
+For Discord it is good to Add Labels, so under the Labels add:
+  - severity=warning
+  - severity=critical
+
+You can add custom anotations as well to come up when the alert fires. 
+
+
+
+Next step is to set the High RAM Usage Alert, very simiar to the High CPU Usage Alert.
+
+Set your New Alert Rule:
+  - Name: High RAM Usage
+  - Folder: Alerts
+  - Evaluation Group: Rack Server
+
+Next is to add your code to the query, this is a little different than the High CPU Usage rule as it is 
+using different datasets. 
+
+  - Query Code: 100 * (1 - (node_memory_MemAvailable_bytes{job="node'} / node_memory_MemTotal_bytes{job="node}))
+
+This code takes the memory available and divides it by the total memory which gives a fraction of RAM still available. 
+Then subtract it from 1 to get the fraction of used RAM. 
+Then multiply it by 100 to convert it to the percentage of RAM used. 
+
+For this you want to make sure you use MemAvailable, not MemFree because:
+
+  Linux uses RAM for:
+    - cache
+    - buffers
+    - filesystem cache
+  These are reclaimable, so the MemAvailable option will give you a more accurate "real usage" value
+
+Then you can set your desired thresholds:
+  - Warning Condition: 
+    - Warning: > (percentage) for (time interval)
+    - Critical: > (percentage) for (time interval)
+
+I set the same evaluation settings as the High CPU Usage and same severity labels. 
+
+
+
+Lastly is to set up the Alerts for the / main filesystem. 
+
+Set your new Alert Rule:
+  - Name: Disk Usage NVMe Root
+  - Folder: Alerts
+  - Evaluation Group: Rack Server
+
+Code for Query is: 100 - (node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}))
+
+This code has the same idea as the High RAM Usage Code; divides the available space by the total space then converts it into a percentage. 
+
+Then you can set your thresholds:
+  - Warning: > (percentage) for (time interval)
+  - Critical: > (percentage) for (time interval)
+Set your severity labels if you desire and annotations
+
+The second NVME Alert Rule is almost identical, one thing we are changing is in our code which is the mountpoint,
+instead of {mountpoint="/",fstype...} it is {mountpoint="/data",fstype...}
+
+This will monitor the usage of the /data disk while the first NVMe Alert Rule calculates the root disk. 
+
+If all went well with your query and thresholds, your alerts should be successfully set up and ready to party. 
 
 
 
